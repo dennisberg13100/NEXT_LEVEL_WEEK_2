@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { View, Image, Text} from 'react-native';
 import { BorderlessButton } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
@@ -10,9 +10,10 @@ import logoIcon from '../../assets/images/logo.png';
 
 interface PageHeaderProps {
     title: string;
+    headerRight?: ReactNode;
 }
 
-const PageHeader:React.FunctionComponent<PageHeaderProps> = ({ title }) => {
+const PageHeader:React.FunctionComponent<PageHeaderProps> = ({ title, children, headerRight}) => {
 
     const { navigate } = useNavigation();
 
@@ -28,7 +29,12 @@ const PageHeader:React.FunctionComponent<PageHeaderProps> = ({ title }) => {
                 </BorderlessButton>
                 <Image source={ logoIcon } resizeMode="contain"/>
             </View>
-            <Text style={ styles.title }>{ title }</Text>
+            <View style={styles.header}>
+                <Text style={ styles.title }>{ title }</Text>
+                {headerRight}
+            </View>
+            
+            {children}
         </View>
     );
 }
